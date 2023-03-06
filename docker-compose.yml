@@ -7,7 +7,7 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--web.enable-lifecycle'
-      - '--storage.tsdb.retention.time=60d'
+      - '--storage.tsdb.retention.time=45d'
     volumes:
       - /etc/hosts:/etc/hosts
       - ./conf/prometheus.yml:/etc/prometheus/prometheus.yml
