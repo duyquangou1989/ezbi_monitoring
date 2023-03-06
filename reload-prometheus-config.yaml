@@ -1,0 +1,26 @@
+- name: Reload Configuration
+  hosts: prometheus
+  become: true
+  gather_facts: false
+  vars:
+    - ROOT_DIR: /root/monitoring
+    - CONF_DIR: /root/monitoring/conf
+  tasks:
+    - name: Sync prometheus.yml
+      copy:
+        src: conf/prometheus.yml
+        dest: '{{ CONF_DIR }}/prometheus.yml'
+    - name: Sync prometheus-rules.yml
+      copy:
+        src: conf/prometheus-rules.yml
+        dest: '{{ CONF_DIR }}/prometheus-rules.yml'
+    - name: Reload config
+      shell:
+        # cmd: docker kill --signal=SIGHUP prometheus
+        cmd: 'docker-compose -f {{ ROOT_DIR }}/docker-compose.yml restart prometheus'
+    - name: Check running container
+      shell:
+        cmd: 'docker ps && sleep 10'
+      register: container_checker
+
+    - debug: var=container_checker.stdout_lines

@@ -1,0 +1,29 @@
+- name: Setup Gitlab CI Pipeline Exporter
+  hosts: prometheus
+  become: true
+  gather_facts: false
+  vars:
+    - ROOT_DIR: /root/monitoring
+    - CONF_DIR: /root/monitoring/conf
+  tasks:
+    - name: Create conf directory
+      file:
+        path: '{{ CONF_DIR }}'
+        state: directory
+    - name: Copy docker-compose.yml
+      copy:
+        src: ./docker-compose.yml
+        dest: '{{ ROOT_DIR }}/docker-compose.yml'
+    - name: Copy gitlab-ci-pipelines-exporter.yml
+      copy:
+        src: conf/gitlab-ci-pipelines-exporter.yml
+        dest: '{{ CONF_DIR }}/gitlab-ci-pipelines-exporter.yml'
+    - name: Reload config
+      shell:
+        cmd: 'docker-compose -f {{ ROOT_DIR }}/docker-compose.yml restart gitlab_exporter'
+    - name: Check running container
+      shell:
+        cmd: 'docker ps && sleep 10'
+      register: container_checker
+
+    - debug: var=container_checker.stdout_lines

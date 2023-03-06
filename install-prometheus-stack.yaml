@@ -1,0 +1,51 @@
+#- import_playbook: ../setup-new-server.yaml
+
+- import_playbook: add-hosts.yaml
+
+- name: Install Prometheus Stack Server
+  hosts: prometheus
+  become: true
+  gather_facts: false
+  vars:
+    - ROOT_DIR: /root/monitoring
+    - CONF_DIR: /root/monitoring/conf
+  tasks:
+    - name: Create conf directory
+      file:
+        path: '{{ CONF_DIR }}'
+        state: directory
+    - name: Copy docker-compose.yml
+      copy:
+        src: ./docker-compose.yml
+        dest: '{{ ROOT_DIR }}/docker-compose.yml'
+    - name: Copy prometheus.yml
+      copy:
+        src: conf/prometheus.yml
+        dest: '{{ CONF_DIR }}/prometheus.yml'
+    - name: Copy prometheus-rules.yml
+      copy:
+        src: conf/prometheus-rules.yml
+        dest: '{{ CONF_DIR }}/prometheus-rules.yml'
+    - name: Copy alertmanager.yml
+      copy:
+        src: conf/alertmanager.yml
+        dest: '{{ CONF_DIR }}/alertmanager.yml'
+    - name: Copy message.tmpl
+      copy:
+        src: conf/message.tmpl
+        dest: '{{ CONF_DIR }}/message.tmpl'
+    - name: Copy grafana.ini
+      copy:
+        src: conf/grafana.ini
+        dest: '{{ CONF_DIR }}/grafana.ini'
+    - name: Copy nginx conf.d
+      copy:
+        src: ./conf/nginx/conf.d
+        dest: '{{ CONF_DIR }}/nginx/'
+    - name: Copy nginx ssl
+      copy:
+        src: ./conf/nginx/ssl
+        dest: '{{ CONF_DIR }}/nginx/'
+    - name: Up the compose
+      shell:
+        cmd: 'docker-compose -f {{ ROOT_DIR }}/docker-compose.yml up -d'

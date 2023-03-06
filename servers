@@ -1,0 +1,2 @@
+[prometheus]
+10.148.0.20	ansible_user=quang.tong

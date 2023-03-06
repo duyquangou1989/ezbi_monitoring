@@ -1,0 +1,36 @@
+- import_playbook: ssh-hostkey-checking.yaml
+
+- name: Install Node Exporter
+  hosts: all
+  become: yes
+  gather_facts: false
+  vars:
+    ansible_ssh_common_args: -o StrictHostKeyChecking=no
+  tasks:
+    - name: Add the user "node_exporter"
+      ansible.builtin.user:
+        name: node_exporter
+        shell: /bin/false
+        system: true
+    - name: mkdir /opt
+      file:
+        path: /opt
+        state: directory
+    - name: Extract source
+      ansible.builtin.unarchive:
+        src: ./source/node_exporter-1.1.2.linux-amd64.tar.gz
+        dest: /opt
+        owner: node_exporter
+    - name: Install unit file to systemd
+      copy:
+        src: ./conf/node_exporter.service
+        dest: /etc/systemd/system/node_exporter.service
+        owner: root
+        group: root
+        mode: 0600
+    - name: Configure systemd to use service and start
+      systemd:
+        daemon_reload: yes
+        enabled: yes
+        state: started
+        name: node_exporter.service
