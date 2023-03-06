@@ -1,13 +1,13 @@
 global:
   resolve_timeout: 5m
 route:
-  group_by: ['alertname','namespace','instance']
+  group_by: ['instance']
   group_wait: 30s
   group_interval: 5m
   repeat_interval: 1h
 
   # Default receiver.
-  receiver: "null"
+  receiver: "gmail"
 
   routes:
   # continue defaults to false, so the first match will end routing.
@@ -17,62 +17,21 @@ route:
   - match:
       alertname: CPUThrottlingHigh
     receiver: "null"
-#   - match:
-#       alertname: KubePodCrashLooping
-#     receiver: "null"
-#   - match:
-#       alertname: TargetDown
-#     receiver: "null"
-#   - match:
-#       alertname: KubeJobFailed
-#     receiver: "null"
-#   - match:
-#       alertname: KubeletTooManyPods
-#     receiver: "null"
-#   - match:
-#       alertname: HostContextSwitching
-#     receiver: "null"
-#   - match:
-#       alertname: KubePodNotReady
-#     receiver: "null"
-#   - match:
-#       alertname: KubeContainerWaiting
-#     receiver: "null"
-#   - match:
-#       alertname: KubeJobCompletion
-#     receiver: "null"
-#   # Gitlab Pipeline alerting: send alert just once a month
-#   - match_re:
-#       alertname: "GitlabPipelineFailed|GitlabPipelineTooLongDuration"
-#     receiver: "gmail"
-#     repeat_interval: 12h
-#     group_interval: 5m
-#   # Hide staging instance to mail channel only
-#   - match_re:
-#       instance: "hhg-database-staging-hotfix.*|sentry-postgresql.*|hhg-dev-1.*|hhg-mongo-staging.*|hhg-redis-staging.*|hhg-staging-mysql.*|postgresql-staging.*|rancher.*|sidis-dev-1.*|hhg-database-dev.*" 
-#     receiver: "gmail"
-#   - match:
-#       severity: critical
-#     receiver: "google_chat" 
-#     continue: true
-#   - match_re:
-#       severity: "warning|critical"
-#     receiver: "gmail"
 
 receivers:
 - name: "null"
 # - name: google_chat
 #   webhook_configs:
 #   - url: http://calert:6000/dispatch
-# # - name: gmail
-# #   email_configs:
-# #     - send_resolved: true
-# #       to: "quang.tong@hellohealthgroup.com, ngoc.do@hellohealthgroup.com, nguyen.duong@hellohealthgroup.com"
-# #       from: "hhg.system@hellohealthgroup.com"
-# #       smarthost: smtp.gmail.com:587
-# #       auth_username: "hhg.system@hellohealthgroup.com"
-# #       auth_identity: "hhg.system@hellohealthgroup.com"
-# #       auth_password: "tnjcuvcmjjsnqrim"
+- name: gmail
+  email_configs:
+    - send_resolved: true
+      to: "duyquangou1989@gmail.com"
+      from: "hhg.system@hellohealthgroup.com"
+      smarthost: smtp.gmail.com:587
+      auth_username: "umar.ezbi@gmail.com"
+      auth_identity: "umar.ezbi@gmail.com"
+      auth_password: "pbfmbxgpwafpvdpa"
 
 inhibit_rules:
   - source_match:

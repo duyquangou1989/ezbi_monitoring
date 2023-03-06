@@ -158,22 +158,22 @@ groups:
     annotations:
       summary: Host unusual disk write latency (instance {{ $labels.instance }})
       description: 'Disk latency is growing (write operations > 100ms). VALUE = {{ printf "%.0f" $value }}s'
-  - alert: HostHighSystemLoad80
-    expr: (node_load5 * 100) / count by (instance, job) (node_cpu_seconds_total{mode="idle"}) > 80
-    for: 5m
-    labels:
-      severity: warning
-    annotations:
-      summary: Host high system load (instance {{ $labels.instance }})
-      description: 'System load / logical cores > 80%. VALUE = {{ $value }}'
-  - alert: HostHighSystemLoad90
-    expr: (node_load5 * 100) / count by (instance, job) (node_cpu_seconds_total{mode="idle"}) > 90
-    for: 5m
-    labels:
-      severity: critical
-    annotations:
-      summary: Host high system load (instance {{ $labels.instance }})
-      description: 'System load / logical cores > 90%. VALUE = {{ $value }}'
+  # - alert: HostHighSystemLoad80
+  #   expr: (node_load5 * 100) / count by (instance, job) (node_cpu_seconds_total{mode="idle"}) > 80
+  #   for: 5m
+  #   labels:
+  #     severity: warning
+  #   annotations:
+  #     summary: Host high system load (instance {{ $labels.instance }})
+  #     description: 'System load / logical cores > 80%. VALUE = {{ $value }}'
+  # - alert: HostHighSystemLoad90
+  #   expr: (node_load5 * 100) / count by (instance, job) (node_cpu_seconds_total{mode="idle"}) > 90
+  #   for: 5m
+  #   labels:
+  #     severity: critical
+  #   annotations:
+  #     summary: Host high system load (instance {{ $labels.instance }})
+  #     description: 'System load / logical cores > 90%. VALUE = {{ $value }}'
   - alert: HostHighCpuLoad80
     expr: 100 - (avg by(instance) (rate(node_cpu_seconds_total{mode="idle"}[2m])) * 100) > 80
     for: 5m
