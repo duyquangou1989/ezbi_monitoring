@@ -31,7 +31,7 @@ receivers:
       smarthost: smtp.gmail.com:587
       auth_username: "umar.ezbi@gmail.com"
       auth_identity: "umar.ezbi@gmail.com"
-      auth_password: "pbfmbxgpwafpvdpa"
+      auth_password: ""
 
 inhibit_rules:
   - source_match:
