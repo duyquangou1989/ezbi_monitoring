@@ -1,2 +1,9 @@
 [prometheus]
-10.148.0.20	ansible_user=quang.tong
+151.106.12.82   ansible_user=root
+
+[nodejs]
+91.228.115.115	ansible_user=root
+51.15.6.127 ansible_user=root
+
+[other]
+159.223.83.104  ansible_user=root

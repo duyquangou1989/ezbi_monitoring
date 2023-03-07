@@ -7,8 +7,8 @@
   become: true
   gather_facts: false
   vars:
-    - ROOT_DIR: /root/monitoring
-    - CONF_DIR: /root/monitoring/conf
+    - ROOT_DIR: /root/ezbi_monitoring
+    - CONF_DIR: /root/ezbi_monitoring/conf
   tasks:
     - name: Create conf directory
       file:

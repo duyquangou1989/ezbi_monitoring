@@ -11,4 +11,6 @@
         line: '{{ item }}'
         backup: yes
       with_items:
-        - 10.30.40.9    elasticsearch-node-1
+        - 159.223.83.104    centos-s-1vcpu-1gb-sgp1-03
+        - 91.228.115.115    DEDI-150139
+        - 51.15.6.127       AMS-411137

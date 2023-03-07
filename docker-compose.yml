@@ -43,15 +43,15 @@ services:
     ports:
       - 8081
 
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    restart: always
-    ports:
-      - "80:80"
-    volumes:
-      - ./conf/nginx/conf.d:/etc/nginx/conf.d
-      - ./conf/nginx/ssl/:/etc/nginx/ssl/
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: nginx
+  #   restart: always
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./conf/nginx/conf.d:/etc/nginx/conf.d
+  #     - ./conf/nginx/ssl/:/etc/nginx/ssl/
 
   node-exporter:
     image: prom/node-exporter:latest
