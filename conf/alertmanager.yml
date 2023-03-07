@@ -27,7 +27,7 @@ receivers:
   email_configs:
     - send_resolved: true
       to: "duyquangou1989@gmail.com"
-      from: "hhg.system@hellohealthgroup.com"
+      from: "Alert System"
       smarthost: smtp.gmail.com:587
       auth_username: "umar.ezbi@gmail.com"
       auth_identity: "umar.ezbi@gmail.com"
