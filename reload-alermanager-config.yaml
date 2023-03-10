@@ -10,10 +10,10 @@
       copy:
         src: conf/alertmanager.yml
         dest: '{{ CONF_DIR }}/alertmanager.yml'
-    - name: Copy message.tmpl
-      copy:
-        src: conf/message.tmpl
-        dest: '{{ CONF_DIR }}/message.tmpl'
+    # - name: Copy message.tmpl
+    #   copy:
+    #     src: conf/message.tmpl
+    #     dest: '{{ CONF_DIR }}/message.tmpl'
     - name: Copy docker-compose.yml
       copy:
         src: ./docker-compose.yml
